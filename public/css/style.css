@@ -1,0 +1,21 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    grid-gap: 20px;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #333;
+    padding: 20px;
+    color: white;
+}
+
+.content {
+    padding: 20px;
+    background-color: #f4f4f4;
+}
