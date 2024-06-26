@@ -20,7 +20,7 @@
 
         <div class="my-4 bg-gray-600 h-[1px]"></div>
 
-        <form id="logout-form" action="#" method="POST" style="display: none;">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
 
