@@ -5,21 +5,26 @@ namespace App\Http\Controllers\Event;
 use AllowDynamicProperties;
 use App\EventEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EventImportRequest;
 use App\Http\Requests\EventRequest;
 use App\Interfaces\EventInterface;
+use App\Services\ImportService;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 #[AllowDynamicProperties]
 class EventController extends Controller
 {
-    public function __construct(EventInterface $event)
+    public function __construct(EventInterface $event, ImportService $importService)
     {
         $this->event = $event;
+        $this->importService = $importService;
     }
 
     /**
@@ -109,5 +114,35 @@ class EventController extends Controller
         $this->event->deleteEvent($id);
 
         return response()->json(['message' => 'Event deleted successfully.']);
+    }
+
+    /**
+     * File import view
+     * @return View
+     */
+    public function importForm(): View
+    {
+        return view('event.import');
+    }
+
+    /**
+     * Importing file data
+     * @param EventImportRequest $request
+     * @return RedirectResponse
+     */
+    public function import(EventImportRequest $request): RedirectResponse
+    {
+        $file = $request->file('file');
+
+        $path = $file->store('csv');
+
+        try {
+            $this->importService->import($path);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Data are currently importing in background.');
     }
 }

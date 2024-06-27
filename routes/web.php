@@ -26,5 +26,9 @@ Route::group(['middleware' => 'auth'], function () {
        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('edit');
        Route::put('/{id}/edit', [EventController::class, 'update'])->name('update');
        Route::delete('/{id}', [EventController::class, 'destroy'])->name('delete');
+
+       # Import event
+       Route::get('/import', [EventController::class, 'importForm'])->name('import');
+       Route::post('/import', [EventController::class, 'import'])->name('import.submit');
     });
 });
