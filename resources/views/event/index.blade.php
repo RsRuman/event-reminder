@@ -51,7 +51,7 @@
                                             data-title="{{ $event->title }}"
                                             data-description="{{ $event->description }}"
                                             data-date="{{ $event->date }}"
-                                            data-recipients="{{ implode(',', $event->recipients) }}"
+                                            data-recipients="{{ ($event->recipients !== null) ? implode(',', $event->recipients) :"" }}"
                                             data-status="{{ $event->status }}">
                                         <i class="bi bi-eye mr-1"></i>
                                         Show

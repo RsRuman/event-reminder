@@ -43,7 +43,7 @@ class ImportService
                 'title'       => $row[1],
                 'description' => $row[2],
                 'date'        => $row[3],
-                'recipients'  => json_decode($row[4]),
+                'recipients'  => $row[4]!== "" ? json_decode($row[4]) : [],
                 'status'      => EventEnum::UPCOMING->value,
             ];
 

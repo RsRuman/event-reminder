@@ -22,11 +22,15 @@ class EventRequest extends FormRequest
     {
         $recipients = json_decode($this->input('recipients', '[]'), true);
 
-        $recipients = array_map(function ($recipient) {
-            return $recipient['value'];
-        }, $recipients);
+        if($recipients !== null) {
+            $this->merge(['recipients' => []]);
+        } else {
+            $recipients = array_map(function ($recipient) {
+                return $recipient['value'];
+            }, (array)$recipients);
 
-        $this->merge(['recipients' => $recipients]);
+            $this->merge(['recipients' => $recipients]);
+        }
     }
 
     /**

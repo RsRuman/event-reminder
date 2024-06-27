@@ -39,7 +39,7 @@ class ImportJob implements ShouldQueue
                 'title'       => $row['title'],
                 'description' => $row['description'],
                 'date'        => $row['date'],
-                'recipients'  => $row['date'],
+                'recipients'  => $row['recipients'],
                 'status'      => $row['status']
             ]);
         }
