@@ -6,6 +6,22 @@
 
 @section('content')
     <div class="mx-auto rounded-md overflow-hidden shadow-md">
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+            <br>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
+            <br>
+        @endif
+
         <div class="px-12 py-4">
             <h2 class="text-lg font-semibold text-gray-800 mb-2">Import Event</h2>
             <form action="{{ route('events.import.submit') }}" method="POST" enctype="multipart/form-data">
