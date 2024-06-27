@@ -2,9 +2,11 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Http\Request;
+
 interface EventInterface
 {
-    public function getEvents(int $perPage);
+    public function getEvents(Request $request);
 
     public function addEvent(array $data);
 

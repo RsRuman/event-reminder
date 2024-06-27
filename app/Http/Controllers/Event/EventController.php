@@ -29,9 +29,7 @@ class EventController extends Controller
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', 20);
-
-        $events = $this->event->getEvents($perPage);
+        $events = $this->event->getEvents($request);
 
         return view('event.index', compact('events'));
     }

@@ -6,17 +6,26 @@ use App\Interfaces\EventInterface;
 use App\Models\Event;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class EventRepository implements EventInterface
 {
     /**
      * List of events
-     * @param int $perPage
+     * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function getEvents(int $perPage): LengthAwarePaginator
+    public function getEvents(Request $request): LengthAwarePaginator
     {
+        $perPage = $request->query('per_page', 20);
+
         return Event::query()
+            ->when($request->has('completed'), function ($query) use ($request) {
+                $query->where('date', '<', now());
+            })
+            ->when($request->has('upcoming'), function ($query) use ($request) {
+                $query->where('date', '>', now());
+            })
             ->paginate($perPage);
     }
 

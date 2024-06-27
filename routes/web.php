@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticationController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 # Public Routes
@@ -16,9 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
     # Home
-    Route::get('/', function () {
-        return view('index');
-    })->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
        Route::get('/', [EventController::class, 'index'])->name('index');

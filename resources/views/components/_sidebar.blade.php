@@ -1,7 +1,7 @@
 <div class="sidebar">
     <!-- Sidebar content -->
     <div>
-        <a href="#" class="flex items-center">
+        <a href="{{ route('home') }}" class="flex items-center">
             <i class="bi bi-calendar-check px-2 py-1 rounded-md bg-blue-600"></i>
             <h1 class="font-bold text-[15px] ml-3">Event Reminder</h1>
         </a>
